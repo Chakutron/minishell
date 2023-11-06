@@ -6,7 +6,7 @@
 #    By: mchiboub <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/07 15:15:55 by mchiboub          #+#    #+#              #
-#    Updated: 2023/11/06 16:43:02 by ocassany         ###   ########.fr        #
+#    Updated: 2023/11/06 17:16:28 by mchiboub         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,26 +86,29 @@ SRCS = 	SRCS/builtin/addback_env.c		\
 
 OBJS = ${SRCS:.c=.o}
 
-GREEN = \033[0;32m
-NC = \033[0m
+GREEN = \e[0;32m
+YELLOW = \e[0;33m
+NC = \e[0m
 
 all: ${NAME}
 
 .c.o:
-		@echo -n "*"
 		@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -lreadline
+		@echo -n "${YELLOW}*${NC}"
 
-${NAME}: ${OBJS}
-		@echo
+${NAME}: compiling ${OBJS}
 		@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -lreadline
-		@echo "${GREEN}${NAME}${NC} executable generated !"
+		@echo "]\n✅ ${GREEN}Done!${NC}"
+
+compiling:
+		@echo -n "☢️  Generating ${GREEN}${NAME}${NC} executable: ["
 
 clean:
-		@echo "Deleting object files.."
+		@echo "❌ Deleting object files..\n"
 		@rm -f ${OBJS}
 
 fclean: clean
-		@echo "Deleting executable files.."
+		@echo "❌ Deleting executable files..\n"
 		@rm -f ${NAME}
 
 re: fclean all
