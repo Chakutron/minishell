@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mchiboub <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/07 15:15:55 by mchiboub          #+#    #+#              #
-#    Updated: 2023/07/02 19:34:47 by mchiboub         ###   ########.fr        #
+#    Updated: 2023/11/06 16:43:02 by ocassany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,11 +92,13 @@ NC = \033[0m
 all: ${NAME}
 
 .c.o:
+		@echo -n "*"
 		@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -lreadline
 
 ${NAME}: ${OBJS}
-		@echo "Generating ${GREEN}${NAME}${NC} executable.."
+		@echo
 		@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -lreadline
+		@echo "${GREEN}${NAME}${NC} executable generated !"
 
 clean:
 		@echo "Deleting object files.."
